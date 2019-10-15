@@ -1,7 +1,7 @@
 from django.db import models
 
 class Tracker(models.Model):
-    summary = models.TextField(max_length=100, null=False, blank=False, verbose_name='Summary')
+    summary = models.CharField(max_length=100, null=False, blank=False, verbose_name='Summary')
     description = models.TextField(max_length=2500, null=True, blank=True, verbose_name='Description')
     status = models.ForeignKey('webapp.Status', related_name='tracker', on_delete=models.PROTECT, verbose_name='Status')
     type = models.ForeignKey('webapp.Type', related_name='tracker', on_delete=models.PROTECT, verbose_name='Type')

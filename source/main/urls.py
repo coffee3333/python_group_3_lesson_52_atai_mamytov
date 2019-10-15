@@ -15,14 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from webapp.views import IndexView, TaskTrackerView, TaskTrackerCraeteView, TaskTrackerUpdateView, TaskTrackerDeleteView, \
+from webapp.views import IndexView, TaskTrackerView, TaskTrackerCreateView, TaskTrackerUpdateView, TaskTrackerDeleteView, \
     TypeView, StatusView, types_create_view, statuses_create_view, types_edit_view, statuses_edit_view, type_delete_view, statuses_delete_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name='index'),
     path('track/<int:pk>/', TaskTrackerView.as_view(), name='task_track'),
-    path('track/add/', TaskTrackerCraeteView.as_view(), name='task_track_add'),
+    path('track/add/', TaskTrackerCreateView.as_view(), name='task_track_add'),
     path('track/<int:pk>/edit', TaskTrackerUpdateView.as_view(), name='task_track_edit' ),
     path('track/<int:pk>/delete', TaskTrackerDeleteView.as_view(), name='task_track_delete'),
     path('types/', TypeView.as_view(), name='type_ls'),

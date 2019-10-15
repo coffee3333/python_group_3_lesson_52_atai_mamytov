@@ -18,7 +18,7 @@ def statuses_create_view(request, *args, **kwargs):
     elif request.method == 'POST':
         form = StatusForm(data=request.POST)
         if form.is_valid():
-            Status.objects.create(type=form.cleaned_data['status'])
+            Status.objects.create(status=form.cleaned_data['status'])
             return redirect('status_ls')
         else:
             return render(request, 'create_status.html', context={'form': form})
