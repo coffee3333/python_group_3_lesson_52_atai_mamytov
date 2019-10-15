@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views.generic import View, TemplateView, ListView, CreateView, DetailView
 
 from webapp.models import Tracker
 from webapp.forms import TrackerForm
+from webapp.views.delete_view import DeleteView
 from webapp.views.update_view import UpdateView
 
 
@@ -42,20 +43,8 @@ class TaskTrackerUpdateView(UpdateView):
         return reverse('task_track', kwargs={'pk': self.object.pk})
 
 
-class TaskTrackerDeleteView(View):
-    def get(self, request, *args, **kwargs):
-        task_tracker = self.get_odject(self.kwargs.get('pk'))
-        context = {'task_tracker': task_tracker}
-        return render(request, 'delete.html', context)
-
-    def post(self, request, *args, **kwargs):
-        task_tracker = self.get_odject(self.kwargs.get('pk'))
-        task_tracker.delete()
-        return redirect('index')
-
-    def get_odject(self, pk):
-        task_tracker = get_object_or_404(Tracker, pk = pk)
-        return task_tracker
-
-
-
+class TaskTrackerDeleteView(DeleteView):
+    template_name = 'delete.html'
+    model = Tracker
+    context_key = 'task_tracker'
+    redirect_url = reverse_lazy('index')
