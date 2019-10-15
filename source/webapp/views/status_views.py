@@ -4,6 +4,7 @@ from django.views.generic import ListView, CreateView
 
 from webapp.models import Tracker, Type, Status
 from webapp.forms import TrackerForm, TypeForm, StatusForm
+from webapp.views import UpdateView
 
 
 class StatusView(ListView):
@@ -20,21 +21,14 @@ class StatusCreateView(CreateView):
     def get_success_url(self):
         return reverse('status_ls')
 
-def statuses_edit_view(request, pk):
-    statuses = get_object_or_404(Status, pk=pk)
-    if request.method == 'GET':
-        form = StatusForm(data={'status' : statuses.status})
-        return render(request, 'update_status.html', context={'form': form, 'status': statuses})
-    elif request.method == 'POST':
-        form = StatusForm(data=request.POST)
-        if form.is_valid():
-            statuses.status = request.POST.get('status')
-            statuses.save()
-            return redirect('status_ls')
-        else:
-            return render(request, 'update_status.html', context={'status': statuses, 'form': form})
-    return redirect('status_ls')
+class StatusesUpdateView(UpdateView):
+    model = Status
+    template_name = 'update_status.html'
+    form_class = StatusForm
+    context_key = 'status'
 
+    def get_redirect_url(self):
+        return reverse('status_ls')
 
 def statuses_delete_view(request, pk):
     statuses = get_object_or_404(Status, pk=pk)
