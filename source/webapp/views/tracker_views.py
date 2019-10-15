@@ -21,31 +21,8 @@ class TaskTrackerView(DetailView):
     model = Tracker
     key_kwarg = 'pk'
 
-#
-# class TaskTrackerCraeteView(View):
-#     def get(self, request, *args, **kwargs):
-#         form = TrackerForm()
-#         context = {
-#             'form': form
-#         }
-#         return render(request, 'create.html', context)
-#
-#     def post(self, request, *args, **kwargs):
-#         form = TrackerForm(data=request.POST)
-#         if form.is_valid():
-#             Tracker.objects.create(
-#                 summary=form.cleaned_data['summary'],
-#                 description=form.cleaned_data['description'],
-#                 status=form.cleaned_data['status'],
-#                 type=form.cleaned_data['type']
-#             )
-#             return redirect('index')
-#         else:
-#             return render(request, 'create.html', context={'form': form})
-
 
 class TaskTrackerCreateView(CreateView):
-
     template_name = 'create.html'
     model = Tracker
     form_class = TrackerForm
