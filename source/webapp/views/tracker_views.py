@@ -1,10 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
-from django.views.generic import View, TemplateView, ListView, CreateView
+from django.views.generic import View, TemplateView, ListView, CreateView, DetailView
 
 from webapp.models import Tracker
 from webapp.forms import TrackerForm
-from webapp.views.detail_view import DetailView
 
 
 class IndexView(ListView):
@@ -14,6 +13,7 @@ class IndexView(ListView):
     ordering = ['-created_at']
     paginate_by = 5
     paginate_orphans = 1
+
 
 class TaskTrackerView(DetailView):
     template_name = 'TaskTrack.html'
