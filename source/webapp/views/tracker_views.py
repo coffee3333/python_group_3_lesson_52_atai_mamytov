@@ -4,6 +4,7 @@ from django.views.generic import View, TemplateView, ListView, CreateView, Detai
 
 from webapp.models import Tracker
 from webapp.forms import TrackerForm
+from webapp.views.update_view import UpdateView
 
 
 class IndexView(ListView):
@@ -31,37 +32,14 @@ class TaskTrackerCreateView(CreateView):
         return reverse('task_track', kwargs={'pk': self.object.pk})
 
 
-class TaskTrackerUpdateView(View):
-    def get(self, request, *args, **kwargs):
-        task_tracker = self.get_odject(self.kwargs.get('pk'))
-        form = TrackerForm(data = {
-            'summary':task_tracker.summary,
-            'description':task_tracker.description,
-            'status':task_tracker.status,
-            'type':task_tracker.type
-        })
-        context = {
-            'task_tracker': task_tracker,
-            'form': form
-        }
-        return render(request, 'update.html', context)
+class TaskTrackerUpdateView(UpdateView):
+    model = Tracker
+    template_name = 'update.html'
+    form_class = TrackerForm
+    context_key = 'task_tracker'
 
-    def post(self, request, *args, **kwargs):
-        task_tracker = self.get_odject(self.kwargs.get('pk'))
-        form = TrackerForm(data=request.POST)
-        if form.is_valid():
-            task_tracker.summary = request.POST.get('summary')
-            task_tracker.description = request.POST.get('description')
-            task_tracker.Status = request.POST.get('status')
-            task_tracker.Type = request.POST.get('type')
-            task_tracker.save()
-            return redirect('index')
-        else:
-            return render(request, 'update.html', context={'task_tracker': task_tracker, 'form': form})
-
-    def get_odject(self, pk):
-        task_tracker = get_object_or_404(Tracker, pk = pk)
-        return task_tracker
+    def get_redirect_url(self):
+        return reverse('task_track', kwargs={'pk': self.object.pk})
 
 
 class TaskTrackerDeleteView(View):
