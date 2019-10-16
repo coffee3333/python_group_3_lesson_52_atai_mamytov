@@ -1,20 +1,19 @@
-from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views.generic import ListView, CreateView
 
-from webapp.models import Tracker, Type, Status
-from webapp.forms import TrackerForm, TypeForm, StatusForm
-from webapp.views import UpdateView
+from webapp.models import Status
+from webapp.forms import StatusForm
+from webapp.views import UpdateView, DeleteView
 
 
 class StatusView(ListView):
     context_object_name = 'statuses'
     model = Status
-    template_name = 'status_ls.html'
+    template_name = 'status/status_ls.html'
 
 
 class StatusCreateView(CreateView):
-    template_name = 'create_status.html'
+    template_name = 'status/create_status.html'
     model = Status
     form_class = StatusForm
 
@@ -32,10 +31,11 @@ class StatusesUpdateView(UpdateView):
         return reverse('status_ls')
 
 
-def statuses_delete_view(request, pk):
-    statuses = get_object_or_404(Status, pk=pk)
-    if request.method == 'GET':
-        return render(request, 'delete_status.html', context={'status': statuses})
-    elif request.method == 'POST':
-        statuses.delete()
-        return redirect('status_ls')
+class StatusesDeleteView(DeleteView):
+    template_name = 'delete_status.html'
+    model = Status
+    context_key = 'status'
+    confirm_deletion = True
+
+    def get_redirect_url(self):
+        return reverse('status_ls')
