@@ -59,28 +59,28 @@
   "pk": 6,
   "fields": {
     "summary": "one asdf",
-    "description": "asdfasdf",
+    "description": "asdfasdfasdfasdf",
     "status": 1,
-    "type": 2,
+    "type": 5,
     "created_at": "2019-10-15T19:55:53.055Z"
   }
 },
 {
   "model": "webapp.tracker",
-  "pk": 7,
+  "pk": 9,
   "fields": {
-    "summary": "till pagination would work",
-    "description": "asdf",
+    "summary": "sdfasdf",
+    "description": "asdfasdf",
     "status": 1,
-    "type": 4,
-    "created_at": "2019-10-15T19:56:30.490Z"
+    "type": 3,
+    "created_at": "2019-10-15T20:53:19.772Z"
   }
 },
 {
   "model": "webapp.status",
   "pk": 1,
   "fields": {
-    "status": "in process"
+    "status": "in processasdf"
   }
 },
 {
@@ -98,10 +98,17 @@
   }
 },
 {
+  "model": "webapp.status",
+  "pk": 4,
+  "fields": {
+    "status": "asdasd"
+  }
+},
+{
   "model": "webapp.type",
   "pk": 1,
   "fields": {
-    "type": "New"
+    "type": "Newasdf"
   }
 },
 {
@@ -130,6 +137,13 @@
   "pk": 5,
   "fields": {
     "type": "in process"
+  }
+},
+{
+  "model": "webapp.type",
+  "pk": 6,
+  "fields": {
+    "type": "asdf"
   }
 },
 {

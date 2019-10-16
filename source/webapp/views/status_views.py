@@ -21,6 +21,7 @@ class StatusCreateView(CreateView):
     def get_success_url(self):
         return reverse('status_ls')
 
+
 class StatusesUpdateView(UpdateView):
     model = Status
     template_name = 'update_status.html'
@@ -29,6 +30,7 @@ class StatusesUpdateView(UpdateView):
 
     def get_redirect_url(self):
         return reverse('status_ls')
+
 
 def statuses_delete_view(request, pk):
     statuses = get_object_or_404(Status, pk=pk)

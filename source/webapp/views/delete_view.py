@@ -1,3 +1,5 @@
+from django.db.models.deletion import ProtectedError
+from django.http import HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views import View
 
@@ -15,13 +17,19 @@ class DeleteView(View):
         if self.confirm_deletion:
             return render(request, self.template_name, self.get_context_data())
         else:
-            self.perform_delete()
-            return redirect(self.get_redirect_url())
+            try:
+                self.perform_delete()
+                return redirect(self.get_redirect_url())
+            except ProtectedError:
+                return HttpResponse("<h2>This object is protected</h2>")
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
-        self.perform_delete()
-        return redirect(self.get_redirect_url())
+        try:
+            self.perform_delete()
+            return redirect(self.get_redirect_url())
+        except ProtectedError:
+            return HttpResponse("<h2>This object is protected</h2>")
 
     def perform_delete(self):
         self.object.delete()
