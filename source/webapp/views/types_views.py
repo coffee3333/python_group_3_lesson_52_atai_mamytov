@@ -24,7 +24,7 @@ class TypesCreateView(CreateView):
 
 class TypesUpdateView(UpdateView):
     model = Type
-    template_name = 'update_type.html'
+    template_name = 'type/update_type.html'
     form_class = TypeForm
     context_key = 'type'
 
@@ -42,7 +42,7 @@ def type_delete_view(request, pk):
 
 
 class TypeDeleteView(DeleteView):
-    template_name = 'delete_type.html'
+    template_name = 'type/delete_type.html'
     model = Type
     context_key = 'type'
     confirm_deletion = True

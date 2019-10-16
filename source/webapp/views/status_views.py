@@ -23,7 +23,7 @@ class StatusCreateView(CreateView):
 
 class StatusesUpdateView(UpdateView):
     model = Status
-    template_name = 'update_status.html'
+    template_name = 'status/update_status.html'
     form_class = StatusForm
     context_key = 'status'
 
@@ -32,7 +32,7 @@ class StatusesUpdateView(UpdateView):
 
 
 class StatusesDeleteView(DeleteView):
-    template_name = 'delete_status.html'
+    template_name = 'status/delete_status.html'
     model = Status
     context_key = 'status'
     confirm_deletion = True

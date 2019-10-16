@@ -34,7 +34,7 @@ class TaskTrackerCreateView(CreateView):
 
 class TaskTrackerUpdateView(UpdateView):
     model = Tracker
-    template_name = 'update.html'
+    template_name = 'tracker/update.html'
     form_class = TrackerForm
     context_key = 'task_tracker'
 
@@ -43,7 +43,7 @@ class TaskTrackerUpdateView(UpdateView):
 
 
 class TaskTrackerDeleteView(DeleteView):
-    template_name = 'delete.html'
+    template_name = 'tracker/delete.html'
     model = Tracker
     context_key = 'task_tracker'
     redirect_url = reverse_lazy('index')
